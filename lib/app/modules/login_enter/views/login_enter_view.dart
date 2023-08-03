@@ -61,6 +61,7 @@ class LoginEnterView extends GetView<LoginEnterController> {
                   ),
                   SizedBox(height: 40,),
                   Form(
+                    key: controller.formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -72,7 +73,7 @@ class LoginEnterView extends GetView<LoginEnterController> {
                             color: Color(0xffF6F8FE),
                             borderRadius: BorderRadius.circular(24)
                           ),
-                          child: TextField(
+                          child: TextFormField(
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                               border: InputBorder.none,
@@ -84,8 +85,14 @@ class LoginEnterView extends GetView<LoginEnterController> {
                               ),
                               contentPadding: EdgeInsets.symmetric(
                                 horizontal: 20
-                              )
+                              ),
                             ),
+                            validator: (value) {
+                              if(value == null || value.toString().isEmpty) {
+                                return "Enter you first name";
+                              }
+                              return null;
+                            },
                           ),
                         ),
                         SizedBox(height: 20,),
@@ -97,7 +104,7 @@ class LoginEnterView extends GetView<LoginEnterController> {
                             color: Color(0xffF6F8FE),
                             borderRadius: BorderRadius.circular(24)
                           ),
-                          child: TextField(
+                          child: TextFormField(
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                               border: InputBorder.none,
@@ -111,6 +118,12 @@ class LoginEnterView extends GetView<LoginEnterController> {
                                 horizontal: 20
                               )
                             ),
+                            validator: (value) {
+                              if(value == null || value.toString().isEmpty) {
+                                return "Enter you last name";
+                              }
+                              return null;
+                            },
                           ),
                         ),
                         SizedBox(height: 20,),
@@ -122,7 +135,7 @@ class LoginEnterView extends GetView<LoginEnterController> {
                             color: Color(0xffF6F8FE),
                             borderRadius: BorderRadius.circular(24)
                           ),
-                          child: TextField(
+                          child: TextFormField(
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                               border: InputBorder.none,
@@ -136,6 +149,15 @@ class LoginEnterView extends GetView<LoginEnterController> {
                                 horizontal: 20
                               )
                             ),
+                            validator: (value) {
+                              if(value == null || value.toString().isEmpty) {
+                                return "Enter you first name";
+                              }
+                              if(! GetUtils.isEmail(value)) {
+                                return "you email addres is error";
+                              }
+                              return null;
+                            },
                           ),
                         ),
                         SizedBox(height: 20,),
@@ -147,13 +169,19 @@ class LoginEnterView extends GetView<LoginEnterController> {
                             color: Color(0xffF6F8FE),
                             borderRadius: BorderRadius.circular(24)
                           ),
-                          child: TextField(
+                          child: TextFormField(
+                            controller: controller.passowrdController,
                             cursorColor: Colors.black,
-                            obscureText: true,
+                            obscureText: !controller.openPassword.value,
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: "Enter your password",
-                              suffixIcon: Icon(Icons.remove_red_eye,color: Color(0xff9CA4AB),),
+                              suffixIcon: GestureDetector(
+                                onTap: (){
+                                  controller.openPassword.value = !controller.openPassword.value;
+                                },
+                                child: Icon(controller.openPassword.value ? Icons.visibility_off : Icons.remove_red_eye ,color: Color(0xff9CA4AB),),
+                              ),
                               hintStyle: TextStyle(
                                 color: Color(0xff9CA4AB,),
                                 fontSize: 16,
@@ -164,6 +192,12 @@ class LoginEnterView extends GetView<LoginEnterController> {
                               )
                             ),
                             textAlignVertical: TextAlignVertical.center,
+                            validator: (value) {
+                              if(value == null || value.toString().isEmpty) {
+                                return "enter you password";
+                              }
+                              return null;
+                            },
                           ),
                         ),
                         SizedBox(height: 20,),
@@ -175,13 +209,19 @@ class LoginEnterView extends GetView<LoginEnterController> {
                             color: Color(0xffF6F8FE),
                             borderRadius: BorderRadius.circular(24)
                           ),
-                          child: TextField(
+                          child: TextFormField(
+                            controller: controller.reportPassowrdController,
                             cursorColor: Colors.black,
-                            obscureText: true,
+                            obscureText: !controller.openReportPassword.value,
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              hintText: "Enter your repeate password",
-                              suffixIcon: Icon(Icons.remove_red_eye,color: Color(0xff9CA4AB),),
+                              hintText: "Enter your report password",
+                              suffixIcon: GestureDetector(
+                                onTap: (){
+                                  controller.openReportPassword.value = !controller.openReportPassword.value;
+                                },
+                                child: Icon(controller.openReportPassword.value ? Icons.visibility_off : Icons.remove_red_eye ,color: Color(0xff9CA4AB),),
+                              ),
                               hintStyle: TextStyle(
                                 color: Color(0xff9CA4AB,),
                                 fontSize: 16,
@@ -192,17 +232,62 @@ class LoginEnterView extends GetView<LoginEnterController> {
                               )
                             ),
                             textAlignVertical: TextAlignVertical.center,
+                             validator: (value) {
+                              if(value == null || value.toString().isEmpty) {
+                                return "enter you password";
+                              }
+                              if(controller.passowrdController.value != controller.reportPassowrdController.value) {
+                                return "the password is dont different";
+                              }
+                              return null;
+                            },
                           ),
                         ),
                       ],
                     ),
                   ),
+                  SizedBox(height: 30,),
                   ElevatedButton(
                     style: ButtonStyle(
-                      
+                      backgroundColor: MaterialStateProperty.all<Color>(Color(0xff121942)),
+                      minimumSize: MaterialStateProperty.all<Size>(Size(MediaQuery.of(context).size.width, 56)),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24)
+                        )
+                      )
                     ),
-                    onPressed: (){}, 
-                    child: CustomText("Sign up")
+                    onPressed: (){
+                      if(controller.formKey.currentState!.validate()) {
+
+                      }
+                    }, 
+                    child: CustomText("Sign up",textColor: Colors.white,fontSize: 16,fontWeight: FontWeight.w600,)
+                  ),
+                  SizedBox(height: 30,),
+                  Center(
+                    child: RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "Already have an account?",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xff66707A)
+                            )
+                          ),
+                          TextSpan(
+                            text: " Login",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xff121942)
+                            )
+                          ),
+                        ]
+                      ),
+                    ),
                   )
                 ],
               );

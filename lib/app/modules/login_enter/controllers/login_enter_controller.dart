@@ -1,9 +1,14 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginEnterController extends GetxController {
-  //TODO: Implement LoginEnterController
 
   final count = 0.obs;
+  final openPassword = false.obs;
+  final openReportPassword = false.obs;
+  final TextEditingController passowrdController = TextEditingController();
+  final TextEditingController reportPassowrdController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
   @override
   void onInit() {
     super.onInit();
