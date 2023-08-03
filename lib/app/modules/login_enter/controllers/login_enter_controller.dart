@@ -8,6 +8,7 @@ class LoginEnterController extends GetxController {
   final openReportPassword = false.obs;
   final TextEditingController passowrdController = TextEditingController();
   final TextEditingController reportPassowrdController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   @override
   void onInit() {

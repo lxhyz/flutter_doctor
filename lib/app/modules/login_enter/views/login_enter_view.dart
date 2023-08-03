@@ -259,7 +259,11 @@ class LoginEnterView extends GetView<LoginEnterController> {
                     ),
                     onPressed: (){
                       if(controller.formKey.currentState!.validate()) {
-
+                        var userInfo = {
+                          "name":"",
+                          "token":"",
+                          "avatar":""
+                        };
                       }
                     }, 
                     child: CustomText("Sign up",textColor: Colors.white,fontSize: 16,fontWeight: FontWeight.w600,)
