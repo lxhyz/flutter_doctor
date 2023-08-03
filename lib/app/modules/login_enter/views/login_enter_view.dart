@@ -74,6 +74,7 @@ class LoginEnterView extends GetView<LoginEnterController> {
                             borderRadius: BorderRadius.circular(24)
                           ),
                           child: TextFormField(
+                            controller: controller.nameController,
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                               border: InputBorder.none,
@@ -105,6 +106,7 @@ class LoginEnterView extends GetView<LoginEnterController> {
                             borderRadius: BorderRadius.circular(24)
                           ),
                           child: TextFormField(
+                            controller: controller.reportNameController,
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                               border: InputBorder.none,
@@ -136,6 +138,7 @@ class LoginEnterView extends GetView<LoginEnterController> {
                             borderRadius: BorderRadius.circular(24)
                           ),
                           child: TextFormField(
+                            controller: controller.emialController,
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                               border: InputBorder.none,
@@ -236,7 +239,7 @@ class LoginEnterView extends GetView<LoginEnterController> {
                               if(value == null || value.toString().isEmpty) {
                                 return "enter you password";
                               }
-                              if(controller.passowrdController.value != controller.reportPassowrdController.value) {
+                              if(controller.passowrdController.text != controller.reportPassowrdController.text) {
                                 return "the password is dont different";
                               }
                               return null;
@@ -257,13 +260,15 @@ class LoginEnterView extends GetView<LoginEnterController> {
                         )
                       )
                     ),
-                    onPressed: (){
+                    onPressed: () async {
                       if(controller.formKey.currentState!.validate()) {
                         var userInfo = {
-                          "name":"",
-                          "token":"",
-                          "avatar":""
+                          "name":controller.nameController.text,
+                          "token":controller.passowrdController.text,
+                          "avatar":"test"
                         };
+                        await box.write("userInfo", userInfo);
+                        Get.offAllNamed("/root");
                       }
                     }, 
                     child: CustomText("Sign up",textColor: Colors.white,fontSize: 16,fontWeight: FontWeight.w600,)
