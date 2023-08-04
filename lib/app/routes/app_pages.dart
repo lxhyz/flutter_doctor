@@ -35,7 +35,7 @@ class AppPages {
     GetPage(
       name: _Paths.ROOT,
       page: () => const RootView(),
-      binding: RootBinding(),
+      bindings: [RootBinding(),HomeBinding()],
     ),
   ];
 }
