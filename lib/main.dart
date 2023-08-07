@@ -21,7 +21,10 @@ void main() async {
         scaffoldBackgroundColor: Colors.white,
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.white,
-          elevation: 0
+          elevation: 0,
+          iconTheme: IconThemeData(
+            color: Colors.black
+          )
         ),
       ),
     ),

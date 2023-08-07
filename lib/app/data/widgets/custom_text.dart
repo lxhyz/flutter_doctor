@@ -8,7 +8,8 @@ class CustomText extends StatelessWidget{
   Color textColor;
   TextOverflow overflow;
   FontWeight fontWeight;
-  CustomText(String this.value,{this.maxLines = 1,this.fontSize = 20,this.textColor = Colors.black,this.overflow = TextOverflow.ellipsis,this.fontWeight = FontWeight.w500});
+  double textHeight;
+  CustomText(String this.value,{this.maxLines = 1,this.fontSize = 20,this.textColor = Colors.black,this.overflow = TextOverflow.ellipsis,this.fontWeight = FontWeight.w500,this.textHeight = 1.0});
   @override
   Widget build(BuildContext context) {
     return Text(
@@ -17,9 +18,11 @@ class CustomText extends StatelessWidget{
         fontSize: fontSize,
         fontWeight:fontWeight,
         color: textColor,
+        height: textHeight
       ),
       maxLines: maxLines,
       overflow: overflow,
+
     );
   }
 }

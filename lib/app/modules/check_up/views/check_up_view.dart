@@ -84,67 +84,72 @@ class CheckUpView extends GetView<CheckUpController> {
   }
 
   Widget _DoctorItem(){
-    return Container(
-      height: 100,
-      margin: EdgeInsets.only(
-        bottom: 20
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 88,
-            height: 100,
-            child: Stack(
-              children: [
-                Container(
-                  width: 88,
-                  height: 88,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: Colors.grey.withOpacity(.5),
-                  ),
-                ),
-                Positioned(
-                  bottom: -5,
-                  left: 44 - 27,
-                  child: Container(
-                    height: 30,
-                    width: 88 / 2 + 10,
+    return GestureDetector(
+      onTap: (){
+        Get.toNamed("/doctor-detail");
+      },
+      child: Container(
+        height: 100,
+        margin: EdgeInsets.only(
+          bottom: 20
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 88,
+              height: 100,
+              child: Stack(
+                children: [
+                  Container(
+                    width: 88,
+                    height: 88,
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(.5),
                       borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.star,color: Colors.orange,size: 14),
-                        SizedBox(width: 2,),
-                        CustomText("4.0",textColor: Colors.white,fontSize: 12,)
-                      ],
+                      color: Colors.grey.withOpacity(.5),
                     ),
                   ),
+                  Positioned(
+                    bottom: -5,
+                    left: 44 - 27,
+                    child: Container(
+                      height: 30,
+                      width: 88 / 2 + 10,
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(.5),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.star,color: Colors.orange,size: 14),
+                          SizedBox(width: 2,),
+                          CustomText("4.0",textColor: Colors.white,fontSize: 12,)
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(width: 16,),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                CustomText("Dr. Emmly Lestiryno",textColor: Color(0xff171725),fontSize: 16,fontWeight: FontWeight.w700,),
+                CustomText("General Practitioner",textColor: Color(0xff78828A),fontSize: 12,fontWeight: FontWeight.w600,),
+                Row(
+                  children: [
+                    Icon(Icons.room,color: Colors.black,),
+                    SizedBox(width: 5,),
+                    CustomText("Elnodore Hospital",textColor: Color(0xff434E58),fontSize: 12,fontWeight: FontWeight.w500,),
+                  ],
                 )
               ],
-            ),
-          ),
-          SizedBox(width: 16,),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              CustomText("Dr. Emmly Lestiryno",textColor: Color(0xff171725),fontSize: 16,fontWeight: FontWeight.w700,),
-              CustomText("General Practitioner",textColor: Color(0xff78828A),fontSize: 12,fontWeight: FontWeight.w600,),
-              Row(
-                children: [
-                  Icon(Icons.room,color: Colors.black,),
-                  SizedBox(width: 5,),
-                  CustomText("Elnodore Hospital",textColor: Color(0xff434E58),fontSize: 12,fontWeight: FontWeight.w500,),
-                ],
-              )
-            ],
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

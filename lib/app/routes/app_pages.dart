@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/check_up/bindings/check_up_binding.dart';
 import '../modules/check_up/views/check_up_view.dart';
+import '../modules/doctor_detail/bindings/doctor_detail_binding.dart';
+import '../modules/doctor_detail/views/doctor_detail_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
@@ -37,12 +39,17 @@ class AppPages {
     GetPage(
       name: _Paths.ROOT,
       page: () => const RootView(),
-      bindings: [RootBinding(), HomeBinding(),CheckUpBinding()],
+      bindings: [RootBinding(), HomeBinding(), CheckUpBinding()],
     ),
     GetPage(
       name: _Paths.CHECK_UP,
       page: () => const CheckUpView(),
       binding: CheckUpBinding(),
+    ),
+    GetPage(
+      name: _Paths.DOCTOR_DETAIL,
+      page: () => const DoctorDetailView(),
+      binding: DoctorDetailBinding(),
     ),
   ];
 }
