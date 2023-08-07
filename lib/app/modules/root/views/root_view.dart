@@ -1,4 +1,5 @@
 import 'package:doctor/app/data/Widgets/custom_text.dart';
+import 'package:doctor/app/modules/check_up/views/check_up_view.dart';
 import 'package:doctor/app/modules/home/views/home_view.dart';
 import 'package:flutter/material.dart';
 
@@ -12,12 +13,15 @@ class RootView extends GetView<RootController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: IndexedStack(
-          index: controller.bottomIndex.value,
-          children: [
-            HomeView()
-          ],
-        ),
+        child: Obx(() {
+          return IndexedStack(
+            index: controller.bottomIndex.value,
+            children: [
+              HomeView(),
+              CheckUpView()
+            ],
+          );
+        }),
       ),
       bottomNavigationBar: Obx(() {
         return BottomNavigationBar(

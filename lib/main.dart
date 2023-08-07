@@ -22,7 +22,7 @@ void main() async {
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.white,
           elevation: 0
-        )
+        ),
       ),
     ),
   );
