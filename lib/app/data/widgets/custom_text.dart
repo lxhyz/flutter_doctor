@@ -22,7 +22,7 @@ class CustomText extends StatelessWidget{
       ),
       maxLines: maxLines,
       overflow: overflow,
-
+      textAlign: TextAlign.center,
     );
   }
 }
