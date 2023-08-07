@@ -10,6 +10,10 @@ import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/login_enter/bindings/login_enter_binding.dart';
 import '../modules/login_enter/views/login_enter_view.dart';
+import '../modules/mine/bindings/mine_binding.dart';
+import '../modules/mine/views/mine_view.dart';
+import '../modules/notification/bindings/notification_binding.dart';
+import '../modules/notification/views/notification_view.dart';
 import '../modules/root/bindings/root_binding.dart';
 import '../modules/root/views/root_view.dart';
 
@@ -39,7 +43,7 @@ class AppPages {
     GetPage(
       name: _Paths.ROOT,
       page: () => const RootView(),
-      bindings: [RootBinding(), HomeBinding(), CheckUpBinding()],
+      bindings: [RootBinding(), HomeBinding(), CheckUpBinding(), MineBinding()],
     ),
     GetPage(
       name: _Paths.CHECK_UP,
@@ -50,6 +54,16 @@ class AppPages {
       name: _Paths.DOCTOR_DETAIL,
       page: () => const DoctorDetailView(),
       binding: DoctorDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.MINE,
+      page: () => const MineView(),
+      binding: MineBinding(),
+    ),
+    GetPage(
+      name: _Paths.NOTIFICATION,
+      page: () => const NotificationView(),
+      binding: NotificationBinding(),
     ),
   ];
 }

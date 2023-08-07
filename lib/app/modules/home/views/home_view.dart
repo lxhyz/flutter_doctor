@@ -39,7 +39,12 @@ class HomeView extends GetView<HomeController> {
           ),
         ),
         actions: [
-          Icon(Icons.alarm,color: Colors.black,),
+          GestureDetector(
+            onTap: (){
+              Get.toNamed("/notification");
+            },
+            child: Icon(Icons.alarm,color: Colors.black,),
+          ),
           SizedBox(width: 10,),
           Icon(Icons.message_outlined,color: Colors.black,),
           SizedBox(width: 10,),
@@ -152,7 +157,7 @@ class HomeView extends GetView<HomeController> {
                 CustomText("Specialist  Services",textColor: Color(0xff171725),fontWeight: FontWeight.w700,fontSize: 18,),
                 SizedBox(height: 20,),
                 Container(
-                  height: 200,
+                  height: 220,
                   // color: Colors.orange,
                   child: GridView.count(
                     crossAxisCount: 4,

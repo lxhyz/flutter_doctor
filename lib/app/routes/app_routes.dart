@@ -9,6 +9,8 @@ abstract class Routes {
   static const ROOT = _Paths.ROOT;
   static const CHECK_UP = _Paths.CHECK_UP;
   static const DOCTOR_DETAIL = _Paths.DOCTOR_DETAIL;
+  static const MINE = _Paths.MINE;
+  static const NOTIFICATION = _Paths.NOTIFICATION;
 }
 
 abstract class _Paths {
@@ -19,4 +21,6 @@ abstract class _Paths {
   static const ROOT = '/root';
   static const CHECK_UP = '/check-up';
   static const DOCTOR_DETAIL = '/doctor-detail';
+  static const MINE = '/mine';
+  static const NOTIFICATION = '/notification';
 }

@@ -9,7 +9,8 @@ class CustomText extends StatelessWidget{
   TextOverflow overflow;
   FontWeight fontWeight;
   double textHeight;
-  CustomText(String this.value,{this.maxLines = 1,this.fontSize = 20,this.textColor = Colors.black,this.overflow = TextOverflow.ellipsis,this.fontWeight = FontWeight.w500,this.textHeight = 1.0});
+  TextAlign textAlign;
+  CustomText(String this.value,{this.maxLines = 1,this.fontSize = 20,this.textColor = Colors.black,this.overflow = TextOverflow.ellipsis,this.fontWeight = FontWeight.w500,this.textHeight = 1.0,this.textAlign = TextAlign.center});
   @override
   Widget build(BuildContext context) {
     return Text(
@@ -22,7 +23,7 @@ class CustomText extends StatelessWidget{
       ),
       maxLines: maxLines,
       overflow: overflow,
-
+      textAlign: textAlign,
     );
   }
 }
