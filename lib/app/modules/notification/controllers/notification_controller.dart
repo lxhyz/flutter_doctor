@@ -44,4 +44,12 @@ class NotificationController extends GetxController {
     super.onClose();
   }
 
+  void deleteNotificationItem(parentIndex,childIndex){
+    // 防止联想触发
+    if(parentIndex >= 0 && childIndex >= 0){
+      (notificationList[parentIndex]["messageList"] as List).removeAt(childIndex);
+    }
+    notificationList.refresh();
+    print(notificationList[parentIndex]);
+  }
 }
