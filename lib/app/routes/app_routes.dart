@@ -11,6 +11,7 @@ abstract class Routes {
   static const DOCTOR_DETAIL = _Paths.DOCTOR_DETAIL;
   static const MINE = _Paths.MINE;
   static const NOTIFICATION = _Paths.NOTIFICATION;
+  static const MESSAGE = _Paths.MESSAGE;
 }
 
 abstract class _Paths {
@@ -23,4 +24,5 @@ abstract class _Paths {
   static const DOCTOR_DETAIL = '/doctor-detail';
   static const MINE = '/mine';
   static const NOTIFICATION = '/notification';
+  static const MESSAGE = '/message';
 }

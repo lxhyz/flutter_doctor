@@ -11,7 +11,7 @@ class NotificationView extends GetView<NotificationController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar("Notification"),
+      appBar: CustomAppBar("Notification",false),
       body: SingleChildScrollView(
         child: Obx((){
           return Container(
