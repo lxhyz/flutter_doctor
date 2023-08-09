@@ -1,5 +1,6 @@
 import 'package:doctor/app/data/widgets/custom_bannner_item.dart';
 import 'package:doctor/app/data/widgets/custom_card.dart';
+import 'package:doctor/app/utils/isLogin.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -40,13 +41,26 @@ class HomeView extends GetView<HomeController> {
         ),
         actions: [
           GestureDetector(
-            onTap: (){
-              Get.toNamed("/notification");
+            onTap: () async {
+              if(IsLogin()) {
+                Get.toNamed("/notification");
+              } else {
+                Get.toNamed("/login");
+              }
             },
             child: Icon(Icons.alarm,color: Colors.black,),
           ),
           SizedBox(width: 10,),
-          Icon(Icons.message_outlined,color: Colors.black,),
+          GestureDetector(
+            onTap: (){
+              if(IsLogin()) {
+                Get.toNamed("/message");
+              } else {
+                Get.toNamed("/login");
+              }
+            },
+            child: Icon(Icons.message_outlined,color: Colors.black,)
+          ),
           SizedBox(width: 10,),
         ],
         centerTitle: false,

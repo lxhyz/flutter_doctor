@@ -1,7 +1,7 @@
-import 'package:doctor/app/data/Widgets/custom_text.dart';
 import 'package:doctor/app/modules/check_up/views/check_up_view.dart';
 import 'package:doctor/app/modules/home/views/home_view.dart';
 import 'package:doctor/app/modules/mine/views/mine_view.dart';
+import 'package:doctor/app/modules/store/views/store_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -21,7 +21,7 @@ class RootView extends GetView<RootController> {
               HomeView(),
               CheckUpView(),
               MineView(),
-              MineView(),
+              StoreView(),
               MineView(),
             ],
           );

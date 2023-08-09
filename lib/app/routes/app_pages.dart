@@ -10,12 +10,18 @@ import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/login_enter/bindings/login_enter_binding.dart';
 import '../modules/login_enter/views/login_enter_view.dart';
+import '../modules/message/bindings/message_binding.dart';
+import '../modules/message/views/message_view.dart';
 import '../modules/mine/bindings/mine_binding.dart';
 import '../modules/mine/views/mine_view.dart';
 import '../modules/notification/bindings/notification_binding.dart';
 import '../modules/notification/views/notification_view.dart';
 import '../modules/root/bindings/root_binding.dart';
 import '../modules/root/views/root_view.dart';
+import '../modules/shopping_car/bindings/shopping_car_binding.dart';
+import '../modules/shopping_car/views/shopping_car_view.dart';
+import '../modules/store/bindings/store_binding.dart';
+import '../modules/store/views/store_view.dart';
 
 part 'app_routes.dart';
 
@@ -64,6 +70,28 @@ class AppPages {
       name: _Paths.NOTIFICATION,
       page: () => const NotificationView(),
       binding: NotificationBinding(),
+    ),
+    GetPage(
+      name: _Paths.MESSAGE,
+      page: () => const MessageView(),
+      binding: MessageBinding(),
+    ),
+    GetPage(
+      name: _Paths.STORE,
+      page: () => const StoreView(),
+      binding: StoreBinding(),
+    ),
+    GetPage(
+      name: _Paths.SHOPPING_CAR,
+      page: () => const ShoppingCarView(),
+      binding: ShoppingCarBinding(),
+      children: [
+        GetPage(
+          name: _Paths.SHOPPING_CAR,
+          page: () => const ShoppingCarView(),
+          binding: ShoppingCarBinding(),
+        ),
+      ],
     ),
   ];
 }
