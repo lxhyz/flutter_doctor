@@ -18,6 +18,8 @@ import '../modules/notification/bindings/notification_binding.dart';
 import '../modules/notification/views/notification_view.dart';
 import '../modules/root/bindings/root_binding.dart';
 import '../modules/root/views/root_view.dart';
+import '../modules/schedule/bindings/schedule_binding.dart';
+import '../modules/schedule/views/schedule_view.dart';
 import '../modules/shopping_car/bindings/shopping_car_binding.dart';
 import '../modules/shopping_car/views/shopping_car_view.dart';
 import '../modules/store/bindings/store_binding.dart';
@@ -49,7 +51,7 @@ class AppPages {
     GetPage(
       name: _Paths.ROOT,
       page: () => const RootView(),
-      bindings: [RootBinding(), HomeBinding(), CheckUpBinding(), MineBinding()],
+      bindings: [RootBinding(), HomeBinding(), CheckUpBinding(), MineBinding(),ScheduleBinding()],
     ),
     GetPage(
       name: _Paths.CHECK_UP,
@@ -92,6 +94,11 @@ class AppPages {
           binding: ShoppingCarBinding(),
         ),
       ],
+    ),
+    GetPage(
+      name: _Paths.SCHEDULE,
+      page: () => const ScheduleView(),
+      binding: ScheduleBinding(),
     ),
   ];
 }

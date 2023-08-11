@@ -1,6 +1,7 @@
 import 'package:doctor/app/modules/check_up/views/check_up_view.dart';
 import 'package:doctor/app/modules/home/views/home_view.dart';
 import 'package:doctor/app/modules/mine/views/mine_view.dart';
+import 'package:doctor/app/modules/schedule/views/schedule_view.dart';
 import 'package:doctor/app/modules/store/views/store_view.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +21,7 @@ class RootView extends GetView<RootController> {
             children: [
               HomeView(),
               CheckUpView(),
-              MineView(),
+              ScheduleView(),
               StoreView(),
               MineView(),
             ],
