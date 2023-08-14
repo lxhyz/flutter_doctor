@@ -1,4 +1,9 @@
+import 'dart:convert';
+
 import 'package:doctor/app/data/Widgets/custom_text.dart';
+import 'package:doctor/app/data/model/login_model.dart';
+import 'package:doctor/app/data/service/api/login_api.dart';
+import 'package:doctor/app/data/service/http_service.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -262,12 +267,19 @@ class LoginEnterView extends GetView<LoginEnterController> {
                     ),
                     onPressed: () async {
                       if(controller.formKey.currentState!.validate()) {
+                        final LoginModel res =  await LoginApi.login(
+                            controller.emialController.text,
+                            controller.reportPassowrdController.text,
+                            controller.nameController.text
+                        );
                         var userInfo = {
-                          "name":controller.nameController.text,
-                          "token":controller.passowrdController.text,
-                          "avatar":"test"
+                          "name":res.data?.userInfo?.userName,
+                          "avatar":res.data?.userInfo?.avator,
+                          "email":res.data?.userInfo?.email,
+                          "token":res.data?.userInfo?.token,
                         };
                         await box.write("userInfo", userInfo);
+                        HttpService.setHeaderKey((res.data?.userInfo?.token).toString());
                         Get.offAllNamed("/root");
                       }
                     }, 

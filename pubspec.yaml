@@ -12,6 +12,7 @@ dependencies:
   url_launcher: ^6.1.12
   amap_flutter_map: ^3.0.0
   get: 4.6.5
+  dio: ^5.3.2
   flutter: 
     sdk: flutter
 

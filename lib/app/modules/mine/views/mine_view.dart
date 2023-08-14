@@ -30,7 +30,7 @@ class MineView extends GetView<MineController> {
                         borderRadius: BorderRadius.circular(28),
                         color: Colors.grey.withOpacity(.5)
                       ),
-                      child: FlutterLogo(),
+                      child: Image.network("${userInfo['avatar']}",fit: BoxFit.contain,),
                     ),
                     SizedBox(width: 20,),
                     Expanded(
@@ -39,7 +39,7 @@ class MineView extends GetView<MineController> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                             CustomText("${userInfo['name'] ?? 'anonymous'}",fontWeight: FontWeight.w600,fontSize: 18,),
-                            CustomText("@${userInfo['token'] ?? 'no_email'}",fontWeight: FontWeight.w600,fontSize: 14,textColor: Color(0xff6C6C6C),),
+                            CustomText("${userInfo['email'] ?? ''}",fontWeight: FontWeight.w600,fontSize: 14,textColor: Color(0xff6C6C6C),),
                         ],
                       ),
                     ),

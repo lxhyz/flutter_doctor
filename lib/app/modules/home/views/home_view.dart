@@ -1,3 +1,4 @@
+import 'package:doctor/app/data/service/api/home_api.dart';
 import 'package:doctor/app/data/widgets/custom_bannner_item.dart';
 import 'package:doctor/app/data/widgets/custom_card.dart';
 import 'package:doctor/app/utils/isLogin.dart';
@@ -24,7 +25,8 @@ class HomeView extends GetView<HomeController> {
                   color: Colors.red,
                   borderRadius: BorderRadius.circular(20)
               ),
-              child: FlutterLogo(),
+              clipBehavior: Clip.hardEdge,
+              child: Image.network("${userInfo['avatar']}",fit: BoxFit.contain,),
             ),
           ),
         ),

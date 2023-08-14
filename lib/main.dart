@@ -1,10 +1,12 @@
 import 'package:doctor/app/data/storage/storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 import 'app/routes/app_pages.dart';
+import 'app/routes/app_route_server.dart';
 
 void main() async {
   await GetStorage.init();
@@ -15,6 +17,7 @@ void main() async {
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
+      navigatorObservers: [AppRouteService()],
       theme: ThemeData(
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
@@ -27,6 +30,7 @@ void main() async {
           )
         ),
       ),
+      builder: EasyLoading.init(),
     ),
   );
 }
