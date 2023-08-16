@@ -12,9 +12,5 @@ class LoginApi {
     final LoginModel result = LoginModel.fromJson(encodeResponse);
     print("123-${result}");
     return result;
-    // final responseJson = json.decode(response.toString());
-    // print("responseJson----responseJson${responseJson}");
-    // LoginModel result = LoginModel.fromJson(responseJson);
-    // return result;
   }
 }

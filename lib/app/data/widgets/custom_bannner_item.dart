@@ -19,6 +19,8 @@ class CustomBannerItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 color: Color(0xffECEAFF)
             ),
+            clipBehavior: Clip.hardEdge,
+            child: Image.network(imageUrl,fit: BoxFit.cover,width: 30,height: 30,),
           ),
           CustomText(title,fontSize: 12,fontWeight: FontWeight.w500,textColor: Color(0xff66707A),)
         ],

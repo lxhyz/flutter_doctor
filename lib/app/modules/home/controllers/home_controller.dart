@@ -1,3 +1,4 @@
+import 'package:doctor/app/data/model/home_doctors_hospital.dart';
 import 'package:doctor/app/data/service/api/home_api.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -5,27 +6,16 @@ import 'package:get_storage/get_storage.dart';
 class HomeController extends GetxController {
   late GetStorage box;
 
-  final reservationList = [
-    {
-      "name":"Dr. Richar Kandowen",
-      "kind":"Child Specialist",
-      "date":"Today",
-      "time":"12:00 - 15:30 PM",
-      "avatar":""
-    },
-    {
-      "name":"Swift tale",
-      "kind":"Child Specialist",
-      "date":"Tomorrow",
-      "time":"08:00 - 11:30 AM",
-      "avatar":""
-    }
-  ].obs;
   final reservationIndex = 0.obs;
+  final doctorsSwiper = [].obs;
+  final servicesList = [].obs;
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
     box = GetStorage();
+    getDoctorsInfo();
+    getDoctorsAddressInfo();
+
   }
 
   @override
@@ -38,4 +28,14 @@ class HomeController extends GetxController {
     super.onClose();
   }
 
+  void getDoctorsInfo() async {
+    var doctorsList = await HomeApi.queryDoctorsList();
+    doctorsSwiper.addAll((doctorsList.data?.doctors) as List);
+    servicesList.addAll((doctorsList.data?.servicesList) as List);
+  }
+
+  void getDoctorsAddressInfo() async {
+    final homeDoctorHospitalModel doctorsAddressInfo = await HomeApi.queryDoctorsAddressList();
+    print("hospital ----${doctorsAddressInfo}");
+  }
 }

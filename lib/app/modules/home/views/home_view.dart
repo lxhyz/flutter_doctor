@@ -1,10 +1,13 @@
+import 'package:doctor/app/data/model/home_doctors_list_model.dart';
 import 'package:doctor/app/data/service/api/home_api.dart';
 import 'package:doctor/app/data/widgets/custom_bannner_item.dart';
 import 'package:doctor/app/data/widgets/custom_card.dart';
+import 'package:doctor/app/utils/formation_time.dart';
 import 'package:doctor/app/utils/isLogin.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../data/Widgets/custom_text.dart';
 import '../controllers/home_controller.dart';
@@ -78,6 +81,12 @@ class HomeView extends GetView<HomeController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                ElevatedButton(
+                  onPressed: () async {
+                    controller.getDoctorsAddressInfo();
+                  },
+                  child: Text("123"),
+                ),
                 Container(
                   height: 150,
                   padding: EdgeInsets.all(20),
@@ -87,7 +96,7 @@ class HomeView extends GetView<HomeController> {
                   ),
                   child: PageView(
                     children: [
-                      ...controller.reservationList.map((element) {
+                      ...controller.doctorsSwiper.map((element) {
                         return Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
@@ -100,6 +109,8 @@ class HomeView extends GetView<HomeController> {
                                     borderRadius: BorderRadius.circular(15),
                                     color: Colors.white
                                 ),
+                                clipBehavior: Clip.hardEdge,
+                                child: Image.network(element.image,fit: BoxFit.contain,),
                               ),
                               Expanded(
                                 child: Container(
@@ -110,30 +121,38 @@ class HomeView extends GetView<HomeController> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      CustomText("Dr. Richar Kandowen",textColor: Colors.white,fontSize: 16,fontWeight: FontWeight.w600,),
-                                      CustomText("Child Specialist",textColor: Colors.white,fontSize: 12,fontWeight: FontWeight.w500,),
+                                      CustomText(element.name,textColor: Colors.white,fontSize: 16,fontWeight: FontWeight.w600,),
+                                      CustomText(element.kind,textColor: Colors.white,fontSize: 12,fontWeight: FontWeight.w500,),
                                       Row(
                                         children: [
                                           Icon(Icons.schedule_rounded,color: Colors.white,),
                                           SizedBox(width: 10,),
-                                          CustomText("Today",textColor: Colors.white,fontSize: 12,fontWeight: FontWeight.w600,),
+                                          CustomText(element.day,textColor: Colors.white,fontSize: 12,fontWeight: FontWeight.w600,),
                                         ],
                                       ),
                                       Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Icon(Icons.alarm,color: Colors.white,),
-                                          SizedBox(width: 10,),
-                                          Expanded(
-                                            child: CustomText("14:30 - 15:30 AM  ",textColor: Colors.white,fontSize: 12,fontWeight: FontWeight.w600,),
+                                          Row(
+                                            children: [
+                                              Icon(Icons.alarm,color: Colors.white,),
+                                              SizedBox(width: 10,),
+                                              CustomText(FormationTime.formationDateTime(element.time),textColor: Colors.white,fontSize: 12,fontWeight: FontWeight.w600,),
+                                            ],
                                           ),
-                                          Container(
-                                            width: 30,
-                                            height: 30,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(15),
-                                              color: Colors.white,
+                                          GestureDetector(
+                                            onTap: () async {
+                                              await launchUrl(Uri(scheme: 'tel',path:(element.mobile).toString(),host:'+86'));
+                                            },
+                                            child: Container(
+                                              width: 30,
+                                              height: 30,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(15),
+                                                color: Colors.white,
+                                              ),
+                                              child: Icon(Icons.phone,color: Colors.black,),
                                             ),
-                                            child: Icon(Icons.phone,color: Colors.black,),
                                           )
                                         ],
                                       ),
@@ -154,8 +173,8 @@ class HomeView extends GetView<HomeController> {
                 SizedBox(height: 20,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: controller.reservationList.map((element) {
-                    var index = controller.reservationList.indexOf(element);
+                  children: controller.doctorsSwiper.map((element) {
+                    var index = controller.doctorsSwiper.indexOf(element);
                     return Container(
                       height: 8,
                       width:controller.reservationIndex.value == index ? 24 : 8,
@@ -173,16 +192,15 @@ class HomeView extends GetView<HomeController> {
                 CustomText("Specialist  Services",textColor: Color(0xff171725),fontWeight: FontWeight.w700,fontSize: 18,),
                 SizedBox(height: 20,),
                 Container(
-                  height: 220,
-                  // color: Colors.orange,
+                  height: (controller.servicesList.length / 4).round() * 110,
                   child: GridView.count(
                     crossAxisCount: 4,
                     mainAxisSpacing: 12,
                     crossAxisSpacing: 12,
                     childAspectRatio: 0.85,
                     physics: NeverScrollableScrollPhysics(),
-                    children:List.generate(8, (index) {
-                      return CustomBannerItem("123","123");
+                    children:List.generate(controller.servicesList.length, (index) {
+                      return CustomBannerItem(controller.servicesList[index].tabbarTitle,controller.servicesList[index].tabbarImage);
                     }).toList(),
                   ),
                 ),
@@ -190,7 +208,7 @@ class HomeView extends GetView<HomeController> {
                 CustomText("Specialist  Services",textColor: Color(0xff171725),fontWeight: FontWeight.w700,fontSize: 18,),
                 SizedBox(height: 20,),
                 Container(
-                  height: 100,
+                  height: (controller.servicesList.length / 4).round() * 110,
                   // color: Colors.orange,
                   child: GridView.count(
                     crossAxisCount: 4,
@@ -198,8 +216,8 @@ class HomeView extends GetView<HomeController> {
                     crossAxisSpacing: 12,
                     childAspectRatio: 0.85,
                     physics: NeverScrollableScrollPhysics(),
-                    children:List.generate(4, (index) {
-                      return CustomBannerItem("123","123");
+                    children:List.generate(controller.servicesList.length, (index) {
+                      return CustomBannerItem(controller.servicesList[index].tabbarTitle,controller.servicesList[index].tabbarImage);
                     }).toList(),
                   ),
                 ),

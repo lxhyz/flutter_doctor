@@ -25,7 +25,6 @@ class HttpService {
         onResponse: (Response<dynamic> response,handler){
           EasyLoading.dismiss();
           Map<String,dynamic> responseData = response.data;
-          print("get---${responseData['data']}");
           if(responseData['success'] == false){
             print(1);
             return handler.reject(
@@ -57,7 +56,18 @@ class HttpService {
       }
     } on DioException catch(e) {
       EasyLoading.dismiss();
-      EasyLoading.showError(e.requestOptions.data);
+      print("exception-----${e}");
+      print("exception-response-----${e.response?.data}");
+      print("exception-type-----${e.type}");
+      print("exception-error-----${e.error}");
+      print("exception-message-----${e.message}");
+      // 连接超时异常判断
+      if(e.type == DioExceptionType.connectionTimeout) {
+        EasyLoading.showError(e.message.toString());
+      // 其他异常判断
+      } else {
+        EasyLoading.showError(e.requestOptions.data );
+      }
       throw new Exception("请求异常1 ---- ${e}");
     } on Exception catch(e) {
       throw new Exception("请求异常2 ---- ${e}");
