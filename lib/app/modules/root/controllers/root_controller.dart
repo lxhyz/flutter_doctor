@@ -1,3 +1,6 @@
+import 'package:doctor/app/data/model/home_doctors_list_model.dart';
+import 'package:doctor/app/data/service/api/home_api.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class RootController extends GetxController {
@@ -18,5 +21,4 @@ class RootController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
 }

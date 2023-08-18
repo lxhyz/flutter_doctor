@@ -2,6 +2,12 @@ import 'package:doctor/app/data/Widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 
 class CustomCard extends StatelessWidget {
+  final String name;
+  final String kind;
+  final String address;
+  final String avatar;
+  final int star;
+  CustomCard(this.name,this.kind,this.address,this.star,this.avatar);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,6 +32,7 @@ class CustomCard extends StatelessWidget {
                       color: Colors.blue,
                       borderRadius: BorderRadius.circular(12)
                     ),
+                    child: Image.network(avatar),
                   ),
                 ),
                 Positioned(
@@ -43,7 +50,7 @@ class CustomCard extends StatelessWidget {
                       children: [
                         Icon(Icons.star,color: Colors.orange,size: 16,),
                         SizedBox(width: 5,),
-                        CustomText("4.0",fontSize: 12,fontWeight: FontWeight.w600,textColor: Color(0xffFEFEFE),)
+                        CustomText("$star",fontSize: 12,fontWeight: FontWeight.w600,textColor: Color(0xffFEFEFE),)
                       ],
                     ),
                   ),
@@ -61,13 +68,13 @@ class CustomCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomText("Dr. Emmly Lestiryno",textColor: Color(0xff171725),fontSize: 16,fontWeight: FontWeight.w600,),
-                  CustomText("General Practitioner",textColor: Color(0xff78828A),fontSize: 12,fontWeight: FontWeight.w600,),
+                  CustomText(name,textColor: Color(0xff171725),fontSize: 16,fontWeight: FontWeight.w600,),
+                  CustomText(kind,textColor: Color(0xff78828A),fontSize: 12,fontWeight: FontWeight.w600,),
                   Row(
                     children: [
                       Icon(Icons.location_on,color: Colors.black,size: 20,),
                       SizedBox(width: 5,),
-                      CustomText("General Practitioner",textColor: Color(0xff434E58),fontSize: 12,fontWeight: FontWeight.w500,),
+                      CustomText(address,textColor: Color(0xff434E58),fontSize: 12,fontWeight: FontWeight.w500,),
                     ],
                   )
                 ],

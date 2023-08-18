@@ -49,15 +49,20 @@ class DoctorDetailView extends GetView<DoctorDetailController> {
               //模糊滤镜
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
-                child: Container(
-                  height: 56.0,
-                  width: 56.0,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white.withOpacity(0.20),
+                child: GestureDetector(
+                  onTap:(){
+                    Get.back();
+                  },
+                  child: Container(
+                    height: 56.0,
+                    width: 56.0,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white.withOpacity(0.20),
+                    ),
+                    child: Icon(Icons.close),
                   ),
-                  child: Icon(Icons.close),
                 ),
               ),
             ),

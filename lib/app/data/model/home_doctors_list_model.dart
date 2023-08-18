@@ -20,6 +20,11 @@ class homeDoctorsListModel {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'homeDoctorsListModel{success: $success, message: $message, data: $data}';
+  }
 }
 
 class Data {
@@ -52,6 +57,11 @@ class Data {
       data['servicesList'] = this.servicesList!.map((v) => v.toJson()).toList();
     }
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'Data{doctors: $doctors, servicesList: $servicesList}';
   }
 }
 
@@ -94,6 +104,11 @@ class Doctors {
     data['image'] = this.image;
     return data;
   }
+
+  @override
+  String toString() {
+    return 'Doctors{name: $name, time: $time, kind: $kind, day: $day, mobile: $mobile, mobileCode: $mobileCode, image: $image}';
+  }
 }
 
 class ServicesList {
@@ -112,5 +127,10 @@ class ServicesList {
     data['tabbarImage'] = this.tabbarImage;
     data['tabbarTitle'] = this.tabbarTitle;
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'ServicesList{tabbarImage: $tabbarImage, tabbarTitle: $tabbarTitle}';
   }
 }

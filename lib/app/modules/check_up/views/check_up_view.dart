@@ -1,8 +1,11 @@
 import 'package:doctor/app/data/Widgets/custom_text.dart';
 import 'package:doctor/app/data/widgets/custom_bannner_item.dart';
+import 'package:doctor/app/data/widgets/custom_smart_footer.dart';
+import 'package:doctor/app/data/widgets/custom_smart_header.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../controllers/check_up_controller.dart';
 
@@ -40,45 +43,72 @@ class CheckUpView extends GetView<CheckUpController> {
           )
         ],
       ),
-      body: Container(
-        padding: EdgeInsets.all(20),
-        child: Obx(() {
-          return SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CustomText("Specialist  Services ${controller.count}",textColor: Color(0xff171725),fontWeight: FontWeight.w700,fontSize: 18,),
-                SizedBox(height: 20,),
-                Container(
-                  height: 220,
-                  // color: Colors.orange,
-                  child: GridView.count(
-                    crossAxisCount: 4,
-                    mainAxisSpacing: 12,
-                    crossAxisSpacing: 12,
-                    childAspectRatio: 0.85,
-                    physics: NeverScrollableScrollPhysics(),
-                    children:List.generate(8, (index) {
-                      return CustomBannerItem("123","123");
-                    }).toList(),
+      body: SmartRefresher(
+        controller: controller.refreshController,
+        enablePullUp: true,
+        enablePullDown: true,
+        header:CustomHeader(
+          builder: (BuildContext context,RefreshStatus? mode){
+            return CustomSmartHeader(mode: mode!);
+          },
+        ),
+        footer:CustomFooter(
+          builder: (BuildContext context,LoadStatus? mode){
+            return customSmartFooter(mode: mode!);
+          },
+        ),
+        onRefresh: (){
+          controller.downPullRefresh();
+        },
+        onLoading: (){
+          controller.refreshLoad();
+        },
+        child: Container(
+          padding: EdgeInsets.all(20),
+          child: Obx(() {
+            return SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // ElevatedButton(
+                  //   onPressed: (){
+                  //     controller.getDoctorHospital();
+                  //   },
+                  //   child: Text("123"),
+                  // ),
+                  CustomText("Specialist  Services ${controller.bannerList.length}",textColor: Color(0xff171725),fontWeight: FontWeight.w700,fontSize: 18,),
+                  SizedBox(height: 20,),
+                  Container(
+                    height: 220,
+                    // color: Colors.orange,
+                    child: GridView.count(
+                      crossAxisCount: 4,
+                      mainAxisSpacing: 12,
+                      crossAxisSpacing: 12,
+                      childAspectRatio: 0.85,
+                      physics: NeverScrollableScrollPhysics(),
+                      children:List.generate(controller.bannerList.length, (index) {
+                        return CustomBannerItem(controller.bannerList[index].tabbarTitle,controller.bannerList[index].tabbarImage);
+                      }).toList(),
+                    ),
                   ),
-                ),
-                SizedBox(height: 20,),
-                CustomText("Nearby Doctor",textColor: Color(0xff171725),fontWeight: FontWeight.w700,fontSize: 18,),
-                SizedBox(height: 20,),
-                ListView(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  children: [
-                    ...List.generate(5, (index) {
-                      return _DoctorItem();
-                    }).toList()
-                  ],
-                )
-              ],
-            ),
-          );
-        }),
+                  SizedBox(height: 20,),
+                  CustomText("Nearby Doctor",textColor: Color(0xff171725),fontWeight: FontWeight.w700,fontSize: 18,),
+                  SizedBox(height: 20,),
+                  ListView(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    children: [
+                      ...controller.doctorHospitalList.map((element) {
+                        return _DoctorItem();
+                      }).toList()
+                    ],
+                  )
+                ],
+              ),
+            );
+          }),
+        ),
       ),
     );
   }
