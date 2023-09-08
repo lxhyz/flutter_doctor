@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../controllers/check_up_controller.dart';
+import 'package:doctor/app/data/model/home_doctors_hospital.dart';
 
 class CheckUpView extends GetView<CheckUpController> {
   const CheckUpView({Key? key}) : super(key: key);
@@ -76,7 +77,7 @@ class CheckUpView extends GetView<CheckUpController> {
                   //   },
                   //   child: Text("123"),
                   // ),
-                  CustomText("Specialist  Services ${controller.bannerList.length}",textColor: Color(0xff171725),fontWeight: FontWeight.w700,fontSize: 18,),
+                  CustomText("Specialist  Services",textColor: Color(0xff171725),fontWeight: FontWeight.w700,fontSize: 18,),
                   SizedBox(height: 20,),
                   Container(
                     height: 220,
@@ -100,7 +101,7 @@ class CheckUpView extends GetView<CheckUpController> {
                     physics: NeverScrollableScrollPhysics(),
                     children: [
                       ...controller.doctorHospitalList.map((element) {
-                        return _DoctorItem();
+                        return _DoctorItem(element);
                       }).toList()
                     ],
                   )
@@ -113,7 +114,7 @@ class CheckUpView extends GetView<CheckUpController> {
     );
   }
 
-  Widget _DoctorItem(){
+  Widget _DoctorItem(Info element){
     return GestureDetector(
       onTap: (){
         Get.toNamed("/doctor-detail");
@@ -138,6 +139,8 @@ class CheckUpView extends GetView<CheckUpController> {
                       borderRadius: BorderRadius.circular(12),
                       color: Colors.grey.withOpacity(.5),
                     ),
+                    clipBehavior: Clip.hardEdge,
+                    child: Image.network(element.avatar as String,fit: BoxFit.cover,),
                   ),
                   Positioned(
                     bottom: -5,
@@ -154,7 +157,7 @@ class CheckUpView extends GetView<CheckUpController> {
                         children: [
                           Icon(Icons.star,color: Colors.orange,size: 14),
                           SizedBox(width: 2,),
-                          CustomText("4.0",textColor: Colors.white,fontSize: 12,)
+                          CustomText(element.star.toString(),textColor: Colors.white,fontSize: 12,)
                         ],
                       ),
                     ),
@@ -167,13 +170,13 @@ class CheckUpView extends GetView<CheckUpController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                CustomText("Dr. Emmly Lestiryno",textColor: Color(0xff171725),fontSize: 16,fontWeight: FontWeight.w700,),
-                CustomText("General Practitioner",textColor: Color(0xff78828A),fontSize: 12,fontWeight: FontWeight.w600,),
+                CustomText(element.name as String,textColor: Color(0xff171725),fontSize: 16,fontWeight: FontWeight.w700,),
+                CustomText(element.kind as String,textColor: Color(0xff78828A),fontSize: 12,fontWeight: FontWeight.w600,),
                 Row(
                   children: [
                     Icon(Icons.room,color: Colors.black,),
                     SizedBox(width: 5,),
-                    CustomText("Elnodore Hospital",textColor: Color(0xff434E58),fontSize: 12,fontWeight: FontWeight.w500,),
+                    CustomText(element.address as String,textColor: Color(0xff434E58),fontSize: 12,fontWeight: FontWeight.w500,),
                   ],
                 )
               ],

@@ -12,6 +12,8 @@ import '../modules/login_enter/bindings/login_enter_binding.dart';
 import '../modules/login_enter/views/login_enter_view.dart';
 import '../modules/message/bindings/message_binding.dart';
 import '../modules/message/views/message_view.dart';
+import '../modules/message_detail/bindings/message_detail_binding.dart';
+import '../modules/message_detail/views/message_detail_view.dart';
 import '../modules/mine/bindings/mine_binding.dart';
 import '../modules/mine/views/mine_view.dart';
 import '../modules/notification/bindings/notification_binding.dart';
@@ -51,7 +53,13 @@ class AppPages {
     GetPage(
       name: _Paths.ROOT,
       page: () => const RootView(),
-      bindings: [RootBinding(), HomeBinding(), CheckUpBinding(), MineBinding(),ScheduleBinding()],
+      bindings: [
+        RootBinding(),
+        HomeBinding(),
+        CheckUpBinding(),
+        MineBinding(),
+        ScheduleBinding()
+      ],
     ),
     GetPage(
       name: _Paths.CHECK_UP,
@@ -99,6 +107,11 @@ class AppPages {
       name: _Paths.SCHEDULE,
       page: () => const ScheduleView(),
       binding: ScheduleBinding(),
+    ),
+    GetPage(
+      name: _Paths.MESSAGE_DETAIL,
+      page: () => MessageDetailView(),
+      binding: MessageDetailBinding(),
     ),
   ];
 }
