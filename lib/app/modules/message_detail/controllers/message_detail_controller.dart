@@ -2,9 +2,79 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class MessageDetailController extends GetxController{
-  final bottomPadding = 0.obs;
   final ScrollController messageListScrollterController = ScrollController();
   final FocusNode bottomFocusNOde = FocusNode();
+  final TextEditingController textEditingController = TextEditingController();
+
+
+  final bottomPadding = ''.obs;
+  final keyBoradStatus = true.obs;
+  final messageList = [
+    {
+      "type":0,
+      "message":"Many people find sport card attractive"
+    },
+    {
+      "type":1,
+      "message":"The deposit moeny to the piggy bank when i get money"
+    },
+    {
+      "type":1,
+      "message":"."
+    },
+    {
+      "type":0,
+      "message":"I want back to home"
+    },{
+      "type":0,
+      "message":"Many people find sport card attractive"
+    },
+    {
+      "type":1,
+      "message":"The deposit moeny to the piggy bank when i get money"
+    },
+    {
+      "type":1,
+      "message":"."
+    },
+    {
+      "type":0,
+      "message":"I want back to home"
+    },
+    {
+      "type":0,
+      "message":"Many people find sport card attractive"
+    },
+    {
+      "type":1,
+      "message":"The deposit moeny to the piggy bank when i get money"
+    },
+    {
+      "type":1,
+      "message":"."
+    },
+    {
+      "type":0,
+      "message":"I want back to home"
+    },
+    {
+      "type":0,
+      "message":"Many people find sport card attractive"
+    },
+    {
+      "type":1,
+      "message":"The deposit moeny to the piggy bank when i get money"
+    },
+    {
+      "type":1,
+      "message":"."
+    },
+    {
+      "type":0,
+      "message":"I want back to home"
+    }
+   ].obs;
+ 
   @override
   void onInit() {
     super.onInit();
@@ -16,6 +86,7 @@ class MessageDetailController extends GetxController{
   void dispose() {
     super.dispose();
     bottomFocusNOde.dispose();
+    textEditingController.dispose();
   }
 
   void unFocusNode(){
@@ -43,6 +114,20 @@ class MessageDetailController extends GetxController{
         );
       }
     }
-    print("判断是否聚集--${bottomFocusNOde.hasFocus}");
+    // print("判断是否聚集--${bottomFocusNOde.hasFocus}");
+  }
+
+  void changeVolumDown() {
+    keyBoradStatus.value = !keyBoradStatus.value;
+  }
+
+  void submitted(dynamic value) {
+    messageList.add(
+      {
+        "type":1,
+        "message":value
+      },
+    );
+    textEditingController.clear();
   }
 }
