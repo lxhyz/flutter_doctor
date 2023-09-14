@@ -1,8 +1,7 @@
 import 'package:doctor/app/data/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
-
+import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:get/get.dart';
-
 import '../controllers/message_detail_controller.dart';
 
 class MessageDetailView extends GetView<MessageDetailController>{
@@ -10,9 +9,7 @@ class MessageDetailView extends GetView<MessageDetailController>{
   @override
   Widget build(BuildContext context) {
     final Map<String,dynamic> parameters = Get.parameters;
-    final Map<String,dynamic> arguments = Get.arguments;
     final String name = parameters['name'];
-    final String messageValue = arguments["message"];
     // 获取软键盘高度
     var keyboardSize = MediaQuery.of(context).viewInsets.bottom;
     return Obx(() {
@@ -126,7 +123,16 @@ class MessageDetailView extends GetView<MessageDetailController>{
                                         borderRadius:BorderRadius.circular(10),
                                         color: Colors.grey.withOpacity(.2)
                                       ),
-                                      child: CustomText(element["message"] as String,maxLines: 99,textAlign: TextAlign.start,),
+                                      child: element['message'] != "image*"
+                                          ?
+                                            CustomText(element["message"] as String,maxLines: 99,textAlign: TextAlign.start,)
+                                          :
+                                            Container(
+                                              child: Image(
+                                                image: AssetEntityImageProvider(controller.uploadPickerFile[0]),
+                                              ),
+                                            )
+                                      ,
                                     ),
                                   ),
                                   Positioned(
@@ -202,7 +208,19 @@ class MessageDetailView extends GetView<MessageDetailController>{
                     ),
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: Icon(Icons.add,size: 30),
+                      child: GestureDetector(
+                        onTap:() async {
+                          final List<AssetEntity>? entitys = await AssetPicker.pickAssets(
+                            context,
+                            pickerConfig:AssetPickerConfig(
+                              maxAssets: 9,
+                              requestType: RequestType.image,
+                            )
+                          );
+                          controller.handlerPickerFile(entitys);
+                        },
+                        child:Icon(Icons.add,size: 30)
+                      ),
                     ),
                   ],
                 ),

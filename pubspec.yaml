@@ -17,6 +17,7 @@ dependencies:
   pull_to_refresh: ^2.0.0
   flutter: 
     sdk: flutter
+  wechat_assets_picker: ^8.7.0
 
 dev_dependencies: 
   flutter_launcher_icons: ^0.13.1

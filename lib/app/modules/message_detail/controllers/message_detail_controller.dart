@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class MessageDetailController extends GetxController{
   final ScrollController messageListScrollterController = ScrollController();
@@ -74,6 +75,7 @@ class MessageDetailController extends GetxController{
       "message":"I want back to home"
     }
    ].obs;
+  final uploadPickerFile = [].obs;
  
   @override
   void onInit() {
@@ -129,5 +131,17 @@ class MessageDetailController extends GetxController{
       },
     );
     textEditingController.clear();
+  }
+
+  void handlerPickerFile(List<AssetEntity>? entitys) {
+    entitys!.forEach((item) => {
+      uploadPickerFile.add(item),
+      messageList.add(
+        {
+          "type":1,
+          "message":"image*"
+        }
+      )
+    });
   }
 }
