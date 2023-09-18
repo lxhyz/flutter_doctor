@@ -37,7 +37,7 @@ class MessageDetailView extends GetView<MessageDetailController>{
                 ),
                 SizedBox(width: 40,),
                 Expanded(
-                  child: CustomText("$name - $keyboardSize -${controller.bottomPadding}"),
+                  child: CustomText("$name - ${controller.keyboardHeight.value}"),
                 )
               ],
             ),

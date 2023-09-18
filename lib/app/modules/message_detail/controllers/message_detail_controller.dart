@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
-class MessageDetailController extends GetxController{
+class MessageDetailController extends GetxController with WidgetsBindingObserver{
   final ScrollController messageListScrollterController = ScrollController();
   final FocusNode bottomFocusNOde = FocusNode();
   final TextEditingController textEditingController = TextEditingController();
 
 
-  final bottomPadding = ''.obs;
   final keyBoradStatus = true.obs;
   final messageList = [
     {
@@ -76,12 +75,15 @@ class MessageDetailController extends GetxController{
     }
    ].obs;
   final uploadPickerFile = [].obs;
+  final maxScrollSize = 0.0.obs;
+  final keyboardHeight = 0.0.obs;
  
   @override
   void onInit() {
     super.onInit();
     bottomFocusNOde.addListener(_focusNodeListener);
     messageListScrollterController.addListener(_scrollListener);
+    WidgetsBinding.instance!.addObserver(this);
   }
 
   @override
@@ -89,6 +91,15 @@ class MessageDetailController extends GetxController{
     super.dispose();
     bottomFocusNOde.dispose();
     textEditingController.dispose();
+    WidgetsBinding.instance!.removeObserver(this);
+  }
+
+  @override
+  void didChangeMetrics() {
+    // TODO: implement didChangeMetrics
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      _updateKeyboardVisibility();
+    });
   }
 
   void unFocusNode(){
@@ -97,24 +108,21 @@ class MessageDetailController extends GetxController{
   }
 
   void _scrollListener(){
-    // print("offset------${messageListScrollterController.offset}");
-    // print("max_offset-${messageListScrollterController.position.maxScrollExtent}");
+    // print("current_scroll_offset------${messageListScrollterController.offset}");
+    // print("max_scroll_offset-${messageListScrollterController.position.maxScrollExtent}");
     // 当前滚动距离 messageListScrollController.offset
     // 最大滚动距离 messageListScrollController.position.maxScorllExtent
+    maxScrollSize.value = messageListScrollterController.position.maxScrollExtent;
   }
 
   void _focusNodeListener() {
     // 判断是否聚集
     if(bottomFocusNOde.hasFocus) {
-      double currentOffset = messageListScrollterController.offset;
-      double maxOffset = messageListScrollterController.position.maxScrollExtent;
-      if(currentOffset < maxOffset) {
-        messageListScrollterController.animateTo(
-          300,
+      messageListScrollterController.animateTo(
+          maxScrollSize.value + keyboardHeight.value,  // 最大滚动距离 + 键盘高度距离
           duration: Duration(milliseconds:100),
           curve: Curves.easeIn
-        );
-      }
+      );
     }
     // print("判断是否聚集--${bottomFocusNOde.hasFocus}");
   }
@@ -143,5 +151,16 @@ class MessageDetailController extends GetxController{
         }
       )
     });
+  }
+
+  void _updateKeyboardVisibility() {
+    keyboardHeight.value = Get.mediaQuery.viewInsets.bottom;
+    if(keyboardHeight.value > 0.0) {
+      messageListScrollterController.animateTo(
+          maxScrollSize.value + keyboardHeight.value,  // 最大滚动距离 + 键盘高度距离
+          duration: Duration(milliseconds:100),
+          curve: Curves.easeIn
+      );
+    }
   }
 }
