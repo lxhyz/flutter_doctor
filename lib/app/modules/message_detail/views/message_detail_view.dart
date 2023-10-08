@@ -43,6 +43,31 @@ class MessageDetailView extends GetView<MessageDetailController>{
             ),
           ),
           centerTitle: true,
+          actions: [
+            PopupMenuButton(
+              itemBuilder: (context) {
+                return <PopupMenuEntry<String>>[
+                  CheckedPopupMenuItem(
+                    value: 'english',
+                    checked: controller.popupSelectValue.value == 'english',
+                    child: Text('english'),
+                  ),
+                  PopupMenuDivider(),
+                  CheckedPopupMenuItem(
+                    value: 'chinese',
+                    checked: controller.popupSelectValue.value == 'chinese',
+                    child: Text('chinese'),
+                  ),
+                ];
+              },
+              tooltip: "长按提示",
+              initialValue: "chinese",
+              offset: Offset(0,50),
+              onSelected: (String value){
+                controller.popupSelectValue.value = value;
+              },
+            )
+          ],
         ),
         body:  CustomScrollView(
           physics: NeverScrollableScrollPhysics(),

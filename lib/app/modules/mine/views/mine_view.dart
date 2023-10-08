@@ -159,6 +159,9 @@ class MineView extends GetView<MineController> {
                         child: CustomText("My Order",fontWeight: FontWeight.w600,fontSize: 16,),
                       ),
                       trailing: Icon(Icons.keyboard_arrow_right,size: 30,),
+                      onTap: (){
+                        Get.toNamed("/order-list");
+                      },
                     );
                   }),
                 ),

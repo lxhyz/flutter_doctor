@@ -18,6 +18,8 @@ import '../modules/mine/bindings/mine_binding.dart';
 import '../modules/mine/views/mine_view.dart';
 import '../modules/notification/bindings/notification_binding.dart';
 import '../modules/notification/views/notification_view.dart';
+import '../modules/order_list/bindings/order_list_binding.dart';
+import '../modules/order_list/views/order_list_view.dart';
 import '../modules/root/bindings/root_binding.dart';
 import '../modules/root/views/root_view.dart';
 import '../modules/schedule/bindings/schedule_binding.dart';
@@ -112,6 +114,11 @@ class AppPages {
       name: _Paths.MESSAGE_DETAIL,
       page: () => MessageDetailView(),
       binding: MessageDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.ORDER_LIST,
+      page: () =>  OrderListView(),
+      binding: OrderListBinding(),
     ),
   ];
 }

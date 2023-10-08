@@ -77,6 +77,7 @@ class MessageDetailController extends GetxController with WidgetsBindingObserver
   final uploadPickerFile = [].obs;
   final maxScrollSize = 0.0.obs;
   final keyboardHeight = 0.0.obs;
+  final popupSelectValue = "".obs;
  
   @override
   void onInit() {
